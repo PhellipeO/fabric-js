@@ -1,64 +1,86 @@
 // Inicializa o canvas
-const canvas = new fabric.Canvas('canvas');
+const canvas = new fabric.Canvas("canvas");
 
-// Função para adicionar texto ao canvas
-function addText() {
-  const text = new fabric.Text(document.getElementById('text-input').value, {
-    left: 100,
-    top: 100,
-    fontSize: 20,
-    fill: 'black',
-    fontFamily: 'Arial',
+// Exibir o menu clicado e esconder os outros
+function showMenu(menuId) {
+  document.querySelectorAll(".menu-content").forEach(menu => {
+    menu.style.display = "none";
   });
-  canvas.add(text);
-  canvas.renderAll(); // Atualiza o canvas
+  document.getElementById(menuId).style.display = "block";
 }
 
-// Função para carregar uma imagem no canvas
-document.getElementById('image-input').addEventListener('change', function (e) {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = function (f) {
-    fabric.Image.fromURL(f.target.result, function (img) {
-      img.scaleToWidth(200); // Redimensiona a imagem
-      canvas.add(img);
-      canvas.renderAll(); // Atualiza o canvas
+// Adicionar Texto ao Canvas
+function addText() {
+  const textValue = document.getElementById("text-input").value;
+  if (textValue) {
+    const text = new fabric.Text(textValue, {
+      left: 100,
+      top: 100,
+      fontSize: 20,
+      fill: document.getElementById("text-color").value,
+      fontFamily: document.getElementById("font-family").value,
+      fontWeight: "normal",
+      fontStyle: "normal",
+      selectable: true,
     });
-  };
-  reader.readAsDataURL(file);
-});
-
-// Função para salvar o canvas como imagem
-function saveCanvas() {
-  const link = document.createElement('a');
-  link.href = canvas.toDataURL({ format: 'png' });
-  link.download = 'design.png';
-  link.click();
-}
-
-// Função para trazer o objeto selecionado para frente
-function bringForward() {
-  const activeObject = canvas.getActiveObject();
-  if (activeObject) {
-    activeObject.bringForward(); // Traz o objeto uma camada para frente
-    canvas.renderAll(); // Atualiza o canvas
+    canvas.add(text);
+    canvas.setActiveObject(text);
+    canvas.renderAll();
+  } else {
+    alert("Por favor, digite um texto.");
   }
 }
 
-// Função para enviar o objeto selecionado para trás
-function sendBackward() {
+// Aplicar Negrito e Itálico
+function setBold() {
   const activeObject = canvas.getActiveObject();
-  if (activeObject) {
-    activeObject.sendBackwards(); // Envia o objeto uma camada para trás
-    canvas.renderAll(); // Atualiza o canvas
+  if (activeObject && activeObject.type === "text") {
+    activeObject.set("fontWeight", activeObject.fontWeight === "bold" ? "normal" : "bold");
+    canvas.renderAll();
   }
 }
 
-// Função para deletar o objeto selecionado
-function deleteSelected() {
+function setItalic() {
   const activeObject = canvas.getActiveObject();
-  if (activeObject) {
-    canvas.remove(activeObject); // Remove o objeto do canvas
-    canvas.renderAll(); // Atualiza o canvas
+  if (activeObject && activeObject.type === "text") {
+    activeObject.set("fontStyle", activeObject.fontStyle === "italic" ? "normal" : "italic");
+    canvas.renderAll();
+  }
+}
+
+// Substituir imagem selecionada
+function replaceImage() {
+  const fileInput = document.getElementById("image-input");
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (f) {
+      fabric.Image.fromURL(f.target.result, function (img) {
+        const activeObject = canvas.getActiveObject();
+        if (activeObject && activeObject.type === "image") {
+          activeObject.setElement(img.getElement());
+          canvas.renderAll();
+        }
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// Upload de imagem de fundo
+function uploadBackground() {
+  const fileInput = document.getElementById("background-input");
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (f) {
+      fabric.Image.fromURL(f.target.result, function (img) {
+        img.scaleToWidth(canvas.width);
+        img.scaleToHeight(canvas.height);
+        img.selectable = false;
+        canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+      });
+    };
+    reader.readAsDataURL(file);
   }
 }

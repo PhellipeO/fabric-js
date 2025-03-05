@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  /* Contêiner principal (Sidebar + Canvas) */
+  .editor-container {
+    display: flex;
+    align-items: flex-start; /* Alinha os itens no topo */
+  }
+  
+  /* Sidebar com os menus na esquerda */
+  .menu-sidebar {
+    width: 250px;
+    padding: 10px;
+    border-right: 2px solid #ccc;
+    background-color: #f7f7f7;
+    height: 100vh; /* Ocupa a altura toda da tela */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Botões dos menus */
+  .menu-btn {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: left;
+  }
+  
+  .menu-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Menus escondidos inicialmente */
+  .menu-content {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+  }
+  
+  /* Estilização do Canvas */
+  .canvas-container {
+    margin-left: 20px; /* Dá um espaço entre o canvas e a sidebar */
+  }
+  canvas {
+    border: 1px solid #000;
+    display: block;
+  }
+  

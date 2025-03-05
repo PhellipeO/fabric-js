@@ -1,30 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de Canvas</title>
-    <link rel="stylesheet" href="style.css"> <!-- Opcional -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Canvas</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <h1>Editor de Canvas</h1>
+  <h1>Editor de Canvas</h1>
 
-    <!-- Canvas e Controles -->
-    <canvas id="canvas" width="800" height="600" style="border: 1px solid #000;"></canvas>
-    <br>
-    <input type="text" id="text-input" placeholder="Digite seu texto">
-    <button onclick="addText()">Adicionar Texto</button>
-    <input type="file" id="image-input" accept="image/*">
-    <button onclick="saveCanvas()">Salvar Design</button>
-    <button onclick="bringForward()">Trazer para Frente</button>
-    <button onclick="sendBackward()">Enviar para Trás</button>
-    <button onclick="deleteSelected()">Deletar Selecionado</button>
+  <div class="editor-container">
+    <!-- Sidebar dos Menus -->
+    <div class="menu-sidebar">
+      <button class="menu-btn" onclick="showMenu('text-menu')">Texto</button>
+      <button class="menu-btn" onclick="showMenu('image-menu')">Imagem</button>
+      <button class="menu-btn" onclick="showMenu('background-menu')">Fundo</button>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
-    <script src="script.js"></script>
+      <!-- Menus de Edição -->
+      <div id="text-menu" class="menu-content">
+        <input type="text" id="text-input" placeholder="Digite seu texto">
+        <button onclick="addText()">Adicionar Texto</button>
+        <select id="font-family">
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Verdana">Verdana</option>
+        </select>
+        <input type="color" id="text-color">
+        <button onclick="setBold()">Negrito</button>
+        <button onclick="setItalic()">Itálico</button>
+      </div>
+
+      <div id="image-menu" class="menu-content">
+        <input type="file" id="image-input" accept="image/*">
+        <button onclick="replaceImage()">Substituir Imagem</button>
+      </div>
+
+      <div id="background-menu" class="menu-content">
+        <input type="file" id="background-input" accept="image/*">
+        <button onclick="uploadBackground()">Upload de Fundo</button>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="canvas-container">
+      <canvas id="canvas" width="800" height="600"></canvas>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
+  <script src="script.js"></script>
 </body>
-
 </html>
