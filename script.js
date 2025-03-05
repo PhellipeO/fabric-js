@@ -127,3 +127,23 @@ function uploadBackground() {
     reader.readAsDataURL(file);
   }
 }
+
+// Salvar e carregar JSON
+function saveAsJSON() {
+    const json = JSON.stringify(canvas.toJSON());
+    localStorage.setItem("canvasData", json);
+  }
+  
+  function loadFromJSON() {
+    const json = localStorage.getItem("canvasData");
+    if (json) {
+      canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
+    }
+  }
+  
+  // Atalhos do teclado
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Delete" || event.key === "Backspace") {
+      removeObject();
+    }
+  });
