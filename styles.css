@@ -7,10 +7,12 @@ h1 {
     text-align: center;
 }
 
+
 /* Contêiner principal (Sidebar + Canvas) */
 .editor-container {
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap; /* Para permitir que os itens quebrem a linha em telas pequenas */
 }
 
 /* Sidebar com os menus na esquerda */
