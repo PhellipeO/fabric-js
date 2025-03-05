@@ -1,98 +1,97 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html> <!-- Define o tipo de documento como HTML5 -->
+<html lang="pt-BR"> <!-- Define o idioma da página como português (Brasil) -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editor de Canvas</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8"> <!-- Define a codificação de caracteres como UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Define a área visível da página e ajusta a escala em dispositivos móveis -->
+  <title>Editor de Canvas</title> <!-- Define o título da página que aparece na aba do navegador -->
+  <link rel="stylesheet" href="styles.css"> <!-- Vincula um arquivo CSS externo para estilizar a página -->
 </head>
 <body>
-  <h1>Editor de Canvas</h1>
+  <h1>Editor de Canvas</h1> <!-- Cabeçalho principal da página -->
 
-  <div class="editor-container">
+  <div class="editor-container"> <!-- Container principal para o editor -->
     <!-- Sidebar dos Menus -->
-    <div class="menu-sidebar">
-      <button class="menu-btn" onclick="showMenu('text-menu')">Texto</button>
-      <button class="menu-btn" onclick="showMenu('image-menu')">Imagem</button>
-      <button class="menu-btn" onclick="showMenu('background-menu')">Fundo</button>
+    <div class="menu-sidebar"> <!-- Sidebar para navegação entre menus -->
+      <button class="menu-btn" onclick="showMenu('text-menu')">Texto</button> <!-- Botão para mostrar o menu de texto -->
+      <button class="menu-btn" onclick="showMenu('image-menu')">Imagem</button> <!-- Botão para mostrar o menu de imagem -->
+      <button class="menu-btn" onclick="showMenu('background-menu')">Fundo</button> <!-- Botão para mostrar o menu de fundo -->
 
       <!-- Menus de Edição -->
-      <div id="text-menu" class="menu-content">
+      <div id="text-menu" class="menu-content"> <!-- Menu de edição de texto -->
         
-        <div class="text-input-container">
-          <input type="text" id="text-input" placeholder="Digite seu texto">
-          <button onclick="addText()">+</button>
+        <div class="text-input-container"> <!-- Container para o campo de entrada de texto -->
+          <input type="text" id="text-input" placeholder="Digite seu texto"> <!-- Campo de entrada de texto -->
+          <button onclick="addText()">+</button> <!-- Botão para adicionar o texto ao canvas -->
         </div>
         
-        <div class="text-edit-controls">
-          <div class="edit-row">
+        <div class="text-edit-controls"> <!-- Controles de edição de texto -->
+          <div class="edit-row"> <!-- Linha para escolher a fonte -->
             <label>Fonte:</label>
-            <select id="font-family">
-              <option value="Arial">Arial</option>
-              <option value="Times New Roman">Times New Roman</option>
-              <option value="Verdana">Verdana</option>
-              <option value="Alegreya">Alegreya</option>
+            <select id="font-family"> <!-- Seleção para escolher a fonte do texto -->
+              <option value="Arial">Arial</option> <!-- Opção de fonte Arial -->
+              <option value="Times New Roman">Times New Roman</option> <!-- Opção de fonte Times New Roman -->
+              <option value="Verdana">Verdana</option> <!-- Opção de fonte Verdana -->
+              <option value="Alegreya">Alegreya</option> <!-- Opção de fonte Alegreya -->
             </select>
           </div>
           
-          <div class="edit-row">
+          <div class="edit-row"> <!-- Linha para escolher a cor do texto -->
             <label>Cor:</label>
-            <input type="color" id="text-color">
+            <input type="color" id="text-color"> <!-- Seletor de cor para o texto -->
           </div>
           
-          <div class="edit-row">
+          <div class="edit-row"> <!-- Linha para escolher o tamanho da fonte -->
             <label>Tamanho:</label>
-            <input type="number" id="font-size" value="20" min="8" max="72">
+            <input type="number" id="font-size" value="20" min="8" max="72"> <!-- Campo para selecionar o tamanho da fonte -->
           </div>
           
-          <div class="edit-row style-buttons">
-            <button onclick="setBold()">B</button>
-            <button onclick="setItalic()">I</button>
+          <div class="edit-row style-buttons"> <!-- Linha com botões de estilo do texto -->
+            <button onclick="setBold()">B</button> <!-- Botão para deixar o texto em negrito -->
+            <button onclick="setItalic()">I</button> <!-- Botão para deixar o texto em itálico -->
           </div>
         </div>
-
-        <div class="texto-adicionados"></div>
+        <div class="texto-adicionados"></div> <!-- Container para mostrar os textos adicionados ao canvas -->
       </div>
 
       
 
-      <div id="image-menu" class="menu-content">
-        <input type="file" id="image-input" accept="image/*">
-        <button onclick="replaceImage()">Substituir Imagem</button>
+      <div id="image-menu" class="menu-content"> <!-- Menu de edição de imagem -->
+        <input type="file" id="image-input" accept="image/*"> <!-- Campo para selecionar uma imagem -->
+        <button onclick="replaceImage()">Substituir Imagem</button> <!-- Botão para substituir a imagem no canvas -->
       </div>
 
-      <div id="background-menu" class="menu-content">
-        <input type="file" id="background-input" accept="image/*">
-        <button onclick="uploadBackground()">Upload de Fundo</button>
+      <div id="background-menu" class="menu-content"> <!-- Menu de edição de fundo -->
+        <input type="file" id="background-input" accept="image/*"> <!-- Campo para selecionar uma imagem de fundo -->
+        <button onclick="uploadBackground()">Upload de Fundo</button> <!-- Botão para fazer upload do fundo -->
       </div>
     </div>
 
-    <div class="canvas-container">
+    <div class="canvas-container"> <!-- Container para o canvas de edição -->
       <!-- Legenda das linhas -->
-      <div class="legenda">
-        <div class="legenda-item">
-          <span class="linha-corte"></span> Linha de Corte (pontilhada)
+      <div class="legenda"> <!-- Container para a legenda -->
+        <div class="legenda-item"> <!-- Item de legenda para a linha de corte -->
+          <span class="linha-corte"></span> Linha de Corte (pontilhada) <!-- Descrição da linha de corte -->
         </div>
-        <div class="legenda-item">
-          <span class="linha-seguranca"></span> Linha de Segurança (vermelha)
+        <div class="legenda-item"> <!-- Item de legenda para a linha de segurança -->
+          <span class="linha-seguranca"></span> Linha de Segurança (vermelha) <!-- Descrição da linha de segurança -->
         </div>
       </div>
       
       <!-- Canvas -->
-      <canvas id="canvas" width="800" height="600"></canvas>
+      <canvas id="canvas" width="800" height="600"></canvas> <!-- Área de desenho do canvas, com largura de 800px e altura de 600px -->
     </div>
     
     <!-- Controles Adicionais -->
-    <div class="canvas-controls">
-      <button onclick="removeObject()">Remover Selecionado</button>
-      <button onclick="saveAsImage()">Salvar como Imagem</button>
-      <button onclick="saveAsJSON()">Salvar Projeto</button>
-      <button onclick="loadFromJSON()">Carregar Projeto</button>
+    <div class="canvas-controls"> <!-- Container para os botões de controle do canvas -->
+      <button onclick="removeObject()">Remover Selecionado</button> <!-- Botão para remover o objeto selecionado -->
+      <button onclick="saveAsImage()">Salvar como Imagem</button> <!-- Botão para salvar o canvas como uma imagem -->
+      <button onclick="saveAsJSON()">Salvar Projeto</button> <!-- Botão para salvar o projeto em formato JSON -->
+      <button onclick="loadFromJSON()">Carregar Projeto</button> <!-- Botão para carregar um projeto salvo em formato JSON -->
     </div>
   </div>
 
   <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script> <!-- Carrega a biblioteca Fabric.js para manipulação do canvas -->
+  <script src="script.js"></script> <!-- Carrega o arquivo JavaScript com as funcionalidades do editor -->
 </body>
 </html>
