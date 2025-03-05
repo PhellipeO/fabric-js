@@ -117,7 +117,7 @@ function editarTexto(botao) {
     document.getElementById('text-color').value = textObj.fill;
     document.getElementById('font-family').value = textObj.fontFamily;
     document.getElementById('font-size').value = textObj.fontSize;
-    
+
     // Destacar o texto na lista
     document.querySelectorAll('.texto-item').forEach(item => 
       item.classList.remove('selecionado')
@@ -125,6 +125,37 @@ function editarTexto(botao) {
     textoItem.classList.add('selecionado');
   }
 }
+
+// Atualizando o texto no canvas
+document.getElementById("text-input").addEventListener('input', function() {
+  const activeObject = canvas.getActiveObject();
+  if (activeObject && activeObject.type === 'text') {
+    activeObject.set('text', this.value);  // Atualiza o texto diretamente
+    canvas.renderAll();
+    
+    // Atualiza a lista de textos na interface
+    const textoItem = document.querySelector('.texto-item.selecionado');
+    if (textoItem) {
+      textoItem.querySelector('span').textContent = this.value;  // Atualiza o texto na lista
+    }
+  }
+});
+
+// Função para sair do modo de edição e permitir nova inserção
+function finalizarEdicao() {
+  // Limpar o campo de texto
+  document.getElementById('text-input').value = "";
+  
+  // Desmarcar a seleção do texto no canvas
+  canvas.discardActiveObject();
+  canvas.renderAll();
+  
+  // Limpar a seleção da lista
+  document.querySelectorAll('.texto-item').forEach(item => 
+    item.classList.remove('selecionado')
+  );
+}
+
 
 // Função para remover texto da lista e do canvas
 function removerTexto(botao) {
