@@ -41,11 +41,23 @@
       </div>
     </div>
 
-    <!-- Canvas -->
-    <div class="canvas-container">
-      <canvas id="canvas" width="800" height="600"></canvas>
-    </div>
-  </div>
+        
+        <div class="canvas-container">
+            <!-- Legenda das linhas -->
+            <div class="legenda">
+              <div class="legenda-item">
+                <span class="linha-corte"></span> Linha de Corte (pontilhada)
+              </div>
+              <div class="legenda-item">
+                <span class="linha-seguranca"></span> Linha de Segurança (vermelha)
+              </div>
+            </div>
+            
+            <!-- Canvas -->
+            <canvas id="canvas" width="800" height="600"></canvas>
+          </div>
+          
+      
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>

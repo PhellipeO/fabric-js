@@ -1,6 +1,49 @@
 // Inicializa o canvas
 const canvas = new fabric.Canvas("canvas");
 
+// Tamanhos da área de impressão
+const canvasWidth = canvas.width;
+const canvasHeight = canvas.height;
+const marginCorte = 20;  // Margem para linha de corte
+const marginSeguranca = 40; // Margem para linha de segurança (mais interna)
+
+// Função para desenhar as linhas-guia
+function drawGuides() {
+  // Linha de Corte (pontilhada)
+  const corte = new fabric.Rect({
+    left: marginCorte / 2,
+    top: marginCorte / 2,
+    width: canvasWidth - marginCorte,
+    height: canvasHeight - marginCorte,
+    fill: "transparent",
+    stroke: "black",
+    strokeDashArray: [10, 5], // Estilo pontilhado
+    strokeWidth: 2,
+    selectable: false,
+    evented: false
+  });
+
+  // Linha de Segurança (vermelha)
+  const seguranca = new fabric.Rect({
+    left: marginSeguranca / 2,
+    top: marginSeguranca / 2,
+    width: canvasWidth - marginSeguranca,
+    height: canvasHeight - marginSeguranca,
+    fill: "transparent",
+    stroke: "red",
+    strokeWidth: 2,
+    selectable: false,
+    evented: false
+  });
+
+  // Adiciona ao Canvas
+  canvas.add(corte);
+  canvas.add(seguranca);
+}
+
+// Desenha as linhas no início
+drawGuides();
+
 // Exibir o menu clicado e esconder os outros
 function showMenu(menuId) {
   document.querySelectorAll(".menu-content").forEach(menu => {
