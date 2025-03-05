@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editor de Canvas</title>
-  <link rel="stylesheet" href="style.css"> <!-- Opcional -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Canvas</title>
+    <link rel="stylesheet" href="style.css"> <!-- Opcional -->
 </head>
+
 <body>
-  <h1>Editor de Canvas</h1>
+    <h1>Editor de Canvas</h1>
 
-  <!-- Canvas e Controles -->
-  <canvas id="canvas" width="800" height="600" style="border: 1px solid #000;"></canvas>
-  <br>
-  <input type="text" id="text-input" placeholder="Digite seu texto">
-  <button onclick="addText()">Adicionar Texto</button>
-  <input type="file" id="image-input" accept="image/*">
-  <button onclick="saveCanvas()">Salvar Design</button>
+    <!-- Canvas e Controles -->
+    <canvas id="canvas" width="800" height="600" style="border: 1px solid #000;"></canvas>
+    <br>
+    <input type="text" id="text-input" placeholder="Digite seu texto">
+    <button onclick="addText()">Adicionar Texto</button>
+    <input type="file" id="image-input" accept="image/*">
+    <button onclick="saveCanvas()">Salvar Design</button>
+    <button onclick="bringForward()">Trazer para Frente</button>
+    <button onclick="sendBackward()">Enviar para Trás</button>
+    <button onclick="deleteSelected()">Deletar Selecionado</button>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
-  <script src="script.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>

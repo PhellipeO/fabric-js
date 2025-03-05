@@ -35,3 +35,30 @@ function saveCanvas() {
   link.download = 'design.png';
   link.click();
 }
+
+// Função para trazer o objeto selecionado para frente
+function bringForward() {
+  const activeObject = canvas.getActiveObject();
+  if (activeObject) {
+    activeObject.bringForward(); // Traz o objeto uma camada para frente
+    canvas.renderAll(); // Atualiza o canvas
+  }
+}
+
+// Função para enviar o objeto selecionado para trás
+function sendBackward() {
+  const activeObject = canvas.getActiveObject();
+  if (activeObject) {
+    activeObject.sendBackwards(); // Envia o objeto uma camada para trás
+    canvas.renderAll(); // Atualiza o canvas
+  }
+}
+
+// Função para deletar o objeto selecionado
+function deleteSelected() {
+  const activeObject = canvas.getActiveObject();
+  if (activeObject) {
+    canvas.remove(activeObject); // Remove o objeto do canvas
+    canvas.renderAll(); // Atualiza o canvas
+  }
+}
