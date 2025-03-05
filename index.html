@@ -18,16 +18,39 @@
 
       <!-- Menus de Edição -->
       <div id="text-menu" class="menu-content">
-        <input type="text" id="text-input" placeholder="Digite seu texto">
-        <button onclick="addText()">Adicionar Texto</button>
-        <select id="font-family">
-          <option value="Arial">Arial</option>
-          <option value="Times New Roman">Times New Roman</option>
-          <option value="Verdana">Verdana</option>
-        </select>
-        <input type="color" id="text-color">
-        <button onclick="setBold()">Negrito</button>
-        <button onclick="setItalic()">Itálico</button>
+        <div class="texto-adicionados"></div>
+        
+        <div class="text-input-container">
+          <input type="text" id="text-input" placeholder="Digite seu texto">
+          <button onclick="addText()">+</button>
+        </div>
+        
+        <div class="text-edit-controls">
+          <div class="edit-row">
+            <label>Fonte:</label>
+            <select id="font-family">
+              <option value="Arial">Arial</option>
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Alegreya">Alegreya</option>
+            </select>
+          </div>
+          
+          <div class="edit-row">
+            <label>Cor:</label>
+            <input type="color" id="text-color">
+          </div>
+          
+          <div class="edit-row">
+            <label>Tamanho:</label>
+            <input type="number" id="font-size" value="20" min="8" max="72">
+          </div>
+          
+          <div class="edit-row style-buttons">
+            <button onclick="setBold()">B</button>
+            <button onclick="setItalic()">I</button>
+          </div>
+        </div>
       </div>
 
       <div id="image-menu" class="menu-content">
@@ -41,30 +64,29 @@
       </div>
     </div>
 
-        
-        <div class="canvas-container">
-            <!-- Legenda das linhas -->
-            <div class="legenda">
-              <div class="legenda-item">
-                <span class="linha-corte"></span> Linha de Corte (pontilhada)
-              </div>
-              <div class="legenda-item">
-                <span class="linha-seguranca"></span> Linha de Segurança (vermelha)
-              </div>
-            </div>
-            
-            <!-- Canvas -->
-            <canvas id="canvas" width="800" height="600"></canvas>
-          </div>
-          
-      <!-- Controles Adicionais -->
-<div>
-    <button onclick="removeObject()">Remover Selecionado</button>
-    <button onclick="saveAsImage()">Salvar como Imagem</button>
-    <button onclick="saveAsJSON()">Salvar Projeto</button>
-    <button onclick="loadFromJSON()">Carregar Projeto</button>
+    <div class="canvas-container">
+      <!-- Legenda das linhas -->
+      <div class="legenda">
+        <div class="legenda-item">
+          <span class="linha-corte"></span> Linha de Corte (pontilhada)
+        </div>
+        <div class="legenda-item">
+          <span class="linha-seguranca"></span> Linha de Segurança (vermelha)
+        </div>
+      </div>
+      
+      <!-- Canvas -->
+      <canvas id="canvas" width="800" height="600"></canvas>
+    </div>
+    
+    <!-- Controles Adicionais -->
+    <div class="canvas-controls">
+      <button onclick="removeObject()">Remover Selecionado</button>
+      <button onclick="saveAsImage()">Salvar como Imagem</button>
+      <button onclick="saveAsJSON()">Salvar Projeto</button>
+      <button onclick="loadFromJSON()">Carregar Projeto</button>
+    </div>
   </div>
-  
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>

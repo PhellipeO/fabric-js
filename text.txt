@@ -52,28 +52,28 @@ function showMenu(menuId) {
   document.getElementById(menuId).style.display = "block";
 }
 
-// Adicionar Texto ao Canvas
+// Função modificada para adicionar texto com mais opções
 function addText() {
   const textValue = document.getElementById("text-input").value;
   if (textValue) {
     const text = new fabric.Text(textValue, {
       left: 100,
       top: 100,
-      fontSize: parseInt(document.getElementById('font-size').value) || 20,
+      fontSize: 20,
       fill: document.getElementById("text-color").value,
       fontFamily: document.getElementById("font-family").value,
       fontWeight: "normal",
       fontStyle: "normal",
       selectable: true,
     });
-    
+
     canvas.add(text);
     canvas.setActiveObject(text);
     canvas.renderAll();
-    
+
     // Adicionar à lista de textos
     adicionarTextoNaLista(text);
-    
+
     // Limpar o input após adicionar
     document.getElementById("text-input").value = "";
   } else {
@@ -84,7 +84,7 @@ function addText() {
 // Nova função para adicionar texto à lista
 function adicionarTextoNaLista(textoObj) {
   const listTextos = document.querySelector('.texto-adicionados');
-  
+
   const textoItem = document.createElement('div');
   textoItem.classList.add('texto-item');
   textoItem.innerHTML = `
@@ -94,7 +94,7 @@ function adicionarTextoNaLista(textoObj) {
       <button onclick="removerTexto(this)">❌</button>
     </div>
   `;
-  
+
   listTextos.appendChild(textoItem);
 }
 
@@ -102,24 +102,20 @@ function adicionarTextoNaLista(textoObj) {
 function editarTexto(botao) {
   const textoItem = botao.closest('.texto-item');
   const textoSpan = textoItem.querySelector('span');
-  
+
   // Encontrar o objeto de texto no canvas
-  const textObj = canvas.getObjects().find(obj => 
+  const textObj = canvas.getObjects().find(obj =>
     obj.type === 'text' && obj.text === textoSpan.textContent
   );
-  
+
   if (textObj) {
-    // Selecionar o objeto no canvas
     canvas.setActiveObject(textObj);
-    
-    // Preencher inputs com as propriedades atuais do texto
+
+    // Preencher input com o texto
     document.getElementById('text-input').value = textObj.text;
-    document.getElementById('text-color').value = textObj.fill;
-    document.getElementById('font-family').value = textObj.fontFamily;
-    document.getElementById('font-size').value = textObj.fontSize;
-    
+
     // Destacar o texto na lista
-    document.querySelectorAll('.texto-item').forEach(item => 
+    document.querySelectorAll('.texto-item').forEach(item =>
       item.classList.remove('selecionado')
     );
     textoItem.classList.add('selecionado');
@@ -130,38 +126,33 @@ function editarTexto(botao) {
 function removerTexto(botao) {
   const textoItem = botao.closest('.texto-item');
   const textoSpan = textoItem.querySelector('span');
-  
+
   // Remover do canvas
-  const textObj = canvas.getObjects().find(obj => 
+  const textObj = canvas.getObjects().find(obj =>
     obj.type === 'text' && obj.text === textoSpan.textContent
   );
-  
+
   if (textObj) {
     canvas.remove(textObj);
   }
-  
+
   // Remover da lista
   textoItem.remove();
 }
 
-// Aplicar Negrito
+// Aplicar Negrito e Itálico
 function setBold() {
   const activeObject = canvas.getActiveObject();
-  if (activeObject && activeObject.type === 'text') {
-    activeObject.set('fontWeight', 
-      activeObject.fontWeight === 'bold' ? 'normal' : 'bold'
-    );
+  if (activeObject && activeObject.type === "text") {
+    activeObject.set("fontWeight", activeObject.fontWeight === "bold" ? "normal" : "bold");
     canvas.renderAll();
   }
 }
 
-// Aplicar Itálico
 function setItalic() {
   const activeObject = canvas.getActiveObject();
-  if (activeObject && activeObject.type === 'text') {
-    activeObject.set('fontStyle', 
-      activeObject.fontStyle === 'italic' ? 'normal' : 'italic'
-    );
+  if (activeObject && activeObject.type === "text") {
+    activeObject.set("fontStyle", activeObject.fontStyle === "italic" ? "normal" : "italic");
     canvas.renderAll();
   }
 }
@@ -203,66 +194,17 @@ function uploadBackground() {
   }
 }
 
-// Remover objeto selecionado
-function removeObject() {
-  const activeObject = canvas.getActiveObject();
-  if (activeObject) {
-    canvas.remove(activeObject);
-    
-    // Remover da lista de textos se for um texto
-    if (activeObject.type === 'text') {
-      const textosAdicionados = document.querySelectorAll('.texto-item span');
-      textosAdicionados.forEach(texto => {
-        if (texto.textContent === activeObject.text) {
-          texto.closest('.texto-item').remove();
-        }
-      });
-    }
-  }
-}
-
 // Salvar e carregar JSON
 function saveAsJSON() {
   const json = JSON.stringify(canvas.toJSON());
   localStorage.setItem("canvasData", json);
-  alert("Projeto salvo com sucesso!");
 }
 
 function loadFromJSON() {
   const json = localStorage.getItem("canvasData");
   if (json) {
-    canvas.clear(); // Limpa o canvas atual
-    drawGuides(); // Redesenha as linhas-guia
-    canvas.loadFromJSON(json, () => {
-      canvas.renderAll();
-      
-      // Recriar a lista de textos
-      const textoAdicionados = document.querySelector('.texto-adicionados');
-      textoAdicionados.innerHTML = ''; // Limpa a lista atual
-      
-      // Adicionar textos que estavam no JSON
-      canvas.getObjects().forEach(obj => {
-        if (obj.type === 'text') {
-          adicionarTextoNaLista(obj);
-        }
-      });
-    });
-  } else {
-    alert("Nenhum projeto salvo encontrado.");
+    canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
   }
-}
-
-// Salvar como imagem
-function saveAsImage() {
-  const dataURL = canvas.toDataURL({
-    format: 'png',
-    quality: 1
-  });
-  
-  const link = document.createElement('a');
-  link.download = 'canvas-image.png';
-  link.href = dataURL;
-  link.click();
 }
 
 // Atalhos do teclado
@@ -270,31 +212,4 @@ document.addEventListener("keydown", function (event) {
   if (event.key === "Delete" || event.key === "Backspace") {
     removeObject();
   }
-});
-
-// Adicionar event listeners para atualização em tempo real
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('text-color').addEventListener('input', () => {
-    const activeObject = canvas.getActiveObject();
-    if (activeObject && activeObject.type === 'text') {
-      activeObject.set('fill', document.getElementById('text-color').value);
-      canvas.renderAll();
-    }
-  });
-
-  document.getElementById('font-family').addEventListener('change', () => {
-    const activeObject = canvas.getActiveObject();
-    if (activeObject && activeObject.type === 'text') {
-      activeObject.set('fontFamily', document.getElementById('font-family').value);
-      canvas.renderAll();
-    }
-  });
-
-  document.getElementById('font-size').addEventListener('input', () => {
-    const activeObject = canvas.getActiveObject();
-    if (activeObject && activeObject.type === 'text') {
-      activeObject.set('fontSize', parseInt(document.getElementById('font-size').value));
-      canvas.renderAll();
-    }
-  });
 });
