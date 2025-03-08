@@ -7,7 +7,6 @@ h1 {
     text-align: center;
 }
 
-
 /* Contêiner principal (Sidebar + Canvas) */
 .editor-container {
     display: flex;
@@ -16,7 +15,7 @@ h1 {
 
 /* Sidebar com os menus na esquerda */
 .menu-sidebar {
-    width: 300px; /* Aumentei um pouco para acomodar novos controles */
+    width: 300px;
     padding: 10px;
     border-right: 2px solid #ccc;
     background-color: #f7f7f7;
@@ -24,7 +23,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: auto; /* Caso os menus sejam muito longos */
+    overflow-y: auto;
 }
 
 /* Botões dos menus */
@@ -93,7 +92,7 @@ h1 {
     border: 1px solid #ccc;
     padding: 5px;
     background-color: #f9f9f9;
-    margin-bottom: 10px; /* Optional: adds space if needed */
+    margin-bottom: 10px;
 }
 
 .texto-item {
@@ -161,10 +160,8 @@ h1 {
     background-color: #f1f1f1;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 10px; /* Add margin to create space for texto-adicionados */
+    margin-bottom: 10px;
 }
-
-
 
 .edit-row {
     display: flex;
@@ -178,7 +175,7 @@ h1 {
     color: #555;
 }
 
-.edit-row input, 
+.edit-row input,
 .edit-row select {
     flex-grow: 1;
     padding: 5px;
@@ -232,4 +229,66 @@ h1 {
 
 .canvas-controls button:hover {
     background-color: #545b62;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .editor-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid #ccc;
+        padding: 10px;
+        overflow-y: visible;
+    }
+
+    .canvas-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .menu-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .legenda {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .edit-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .edit-row label {
+        width: 100%;
+        text-align: left;
+    }
+
+    .style-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .style-buttons button {
+        flex-grow: 1;
+        margin: 5px;
+    }
+
+    .canvas-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
